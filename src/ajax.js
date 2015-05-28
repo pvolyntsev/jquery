@@ -445,6 +445,26 @@ jQuery.extend({
 					return this;
 				},
 
+				// Case insensitive
+				getRequestHeader: function( name ) {
+					var lname = name.toLowerCase();
+					name = requestHeadersNames[ lname ] || name;
+					return state ? requestHeaders[ name ] : null;
+				},
+
+				// Raw string
+				getAllRequestHeaders: function() {
+					if (state)
+					{
+						var requestHeadersString = [];
+						jQuery.each(requestHeaders, function(name, value){
+							requestHeadersString.push(name + ": " + value);
+						});
+						return requestHeadersString.join("\n");
+					}
+					return null;
+				},
+
 				// Overrides response content-type header
 				overrideMimeType: function( type ) {
 					if ( !state ) {
